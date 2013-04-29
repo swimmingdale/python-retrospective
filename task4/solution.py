@@ -3,32 +3,20 @@ class Error(Exception):
     pass
 
 class InvalidKey(Error):
-    def __init__(self):
-        self.issuer = "Invalid Key!"
-        self.message = "Try another key!"
-    def __str__(self):
-        return "Invalid Key!"
+    pass
+
 
 class InvalidMove(Error):
-    def __init__(self):
-        self.issuer = "Invalid Move!"
-        self.message = "Try another move!"
-    def __str__(self):
-        return "Invalid Move!"
+    pass
+
 
 class InvalidValue(Error):
-    def __init__(self):
-        self.issuer = "Invalid Value!"
-        self.message = "Try another Value!"
-    def __str__(self):
-        return "Invalid Value!"
+    pass
+
 
 class NotYourTurn(Error):
-    def __init__(self):
-        self.issuer = "Not your turn!"
-        self.message = "It's other's turn"
-    def __str__(self):
-        return "Not your turn!"
+    pass
+
 
 class TicTacToeBoard:
     def __init__(self):
@@ -37,6 +25,7 @@ class TicTacToeBoard:
                       "C1": " ", "C2": " ", "C3": " "}
         self.current = "b"
         self.status = "Game in progress."
+
         
     def __getitem__(self, key):
         try:
@@ -51,6 +40,8 @@ class TicTacToeBoard:
             print(InvalidKey)
         else:
             return self.state[key]
+
+        
     def __setitem__(self, key, value):
         try:
             if(key[0] != "A" and
@@ -87,11 +78,13 @@ class TicTacToeBoard:
                 self.current = "O"
             else:
                 self.current = "X"
+
         
     def game_status(self):
         if self.status == "Game in progress.":
             self.check_end_game()
         return self.status
+
 
     def check_draw(self):
         flag = True
@@ -100,67 +93,24 @@ class TicTacToeBoard:
                 flag = False
         return flag
 
-    def check_end_game(self):
-        if (self.state["A1"] == self.state["A2"] and
-            self.state["A2"] == self.state["A3"] and
-            self.state["A1"] != " " and
-            self.state["A2"] != " " and
-            self.state["A3"] != " "):
-            self.status = "{0} wins!".format(self.state["A1"])
-            return self.status
-        elif (self.state["B1"] == self.state["B2"] and
-            self.state["B2"] == self.state["B3"] and
-            self.state["B1"] != " " and
-            self.state["B2"] != " " and
-            self.state["B3"] != " "):
-            self.status = "{0} wins!".format(self.state["B1"])
-            return self.status
-        elif (self.state["C1"] == self.state["C2"] and
-            self.state["C2"] == self.state["C3"] and
-            self.state["C1"] != " " and
-            self.state["C2"] != " " and
-            self.state["C3"] != " "):
-            self.status = "{0} wins!".format(self.state["C1"])
-            return self.status
-        elif (self.state["A1"] == self.state["B1"] and
-            self.state["B1"] == self.state["C1"] and
-            self.state["A1"] != " " and
-            self.state["B1"] != " " and
-            self.state["C1"] != " "):
-            self.status = "{0} wins!".format(self.state["A1"])
-            return self.status
-        elif (self.state["A2"] == self.state["B2"] and
-            self.state["B2"] == self.state["C2"] and
-            self.state["A2"] != " " and
-            self.state["B2"] != " " and
-            self.state["C2"] != " "):
-            self.status = "{0} wins!".format(self.state["A2"])
-            return self.status
-        elif (self.state["A3"] == self.state["B3"] and
-            self.state["B3"] == self.state["C3"] and
-            self.state["A3"] != " " and
-            self.state["B3"] != " " and
-            self.state["C3"] != " "):
-            self.status = "{0} wins!".format(self.state["A3"])
-            return self.status
-        elif (self.state["A3"] == self.state["B2"] and
-            self.state["B2"] == self.state["C1"] and
-            self.state["A3"] != " " and
-            self.state["B2"] != " " and
-            self.state["C1"] != " "):
-            self.status = "{0} wins!".format(self.state["A3"])
-            return self.status
-        elif (self.state["A1"] == self.state["B2"] and
-            self.state["B2"] == self.state["C3"] and
-            self.state["A1"] != " " and
-            self.state["B2"] != " " and
-            self.state["C3"] != " "):
-            self.status = "{0} wins!".format(self.state["A1"])
-            return self.status
 
-        elif self.check_draw():
+    def check_end_game(self):
+        cases = [["A1", "A2", "A3"], ["B1", "B2", "B3"],
+                 ["C1", "C2", "C3"], ["A1", "B1", "C1"],
+                 ["A2", "B2", "C2"], ["A3", "B3", "C3"],
+                 ["A3", "B2", "C1"], ["A1", "B2", "C3"]]
+        for case in cases:
+            if (self.state[case[0]] == self.state[case[1]] and
+                self.state[case[1]] == self.state[case[2]] and
+                self.state[case[0]] != " " and
+                self.state[case[1]] != " " and
+                self.state[case[2]] != " "):
+                self.status = "{0} wins!".format(self.state[case[0]])
+                return self.status
+        if self.check_draw():
             self.status = "Draw!"
             return self.status
+
 
     def __str__(self):
         return ("\n" +\

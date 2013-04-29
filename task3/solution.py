@@ -8,6 +8,7 @@ class Person:
          self.mother] = [name, birth_year, gender, father, mother]
         all_people.append(self)
 
+
     def get_siblings(self, gender):
         siblings = set()
         for person in all_people:
@@ -20,12 +21,15 @@ class Person:
         if self in siblings:
             siblings.remove(self)
         return list(siblings)
+
            
     def get_brothers(self): 
         return self.get_siblings("M")
+
                         
     def get_sisters(self):
         return self.get_siblings("F")
+
         
     def children(self, gender="both"):
         children = set()
@@ -50,6 +54,7 @@ class Person:
                         person.gender == gender):
                         children.add(person)
         return list(children)
+    
         
     def is_direct_successor(self, person):
         if self.gender == "M":
@@ -66,6 +71,7 @@ class Person:
                 return True
         return False
     
+    
     def __str__(self):
         if self.mother is not None and self.father is not None:
             return "{0}, {1}, {2}, father: {3},mother: {4} \n".format(self.name,
@@ -77,7 +83,6 @@ class Person:
             return "{0}, {1}, {2} \n".format(self.name,
                                              self.birth_year,
                                              self.gender)
-
 
 
     def has_children(self, child):

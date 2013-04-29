@@ -1,25 +1,18 @@
+SIGNS = {(12,22,1,19):"Козирог",
+         (1,20,2,18):"Водолей",
+         (2,19,3,20):"Риби",
+         (3,21,4,20):"Овен",
+         (4,21,5,20):"Телец",
+         (5,21,6,20):"Близнаци",
+         (6,21,7,21):"Рак",
+         (7,22,8,22):"Лъв",
+         (8,23,9,22):"Дева",
+         (9,23,10,22):"Везни",
+         (10,23,11,21):"Скорпион",
+         (11,22,12,21):"Стрелец"}
+
 def what_is_my_sign(day, month):
-    if day >= 21 and month == 3 and day <= 31 or day <= 20 and month == 4:
-        return "Овен"
-    elif day >= 21 and month == 4 and day <= 29 or day <= 20 and month == 5:
-        return "Телец"
-    elif day >= 21 and month == 5 and day <= 31 or day <= 20 and month == 6:
-        return "Близнаци"
-    elif day >= 21 and month == 6 and day <= 30 or day <= 21 and month == 7:
-        return "Рак"
-    elif day >= 22 and month == 7 and day <= 31 or day <= 22 and month == 8:
-        return "Лъв"
-    elif day >= 23 and month == 8 and day <= 31 or day <= 22 and month == 9:
-        return "Дева"
-    elif day >= 23 and month == 9 and day <= 30 or day <= 22 and month == 10:
-        return "Везни"
-    elif day >= 23 and month == 10 and day <= 31 or day <= 21 and month == 11:
-        return "Скорпион"
-    elif day >= 22 and month == 11 and day <= 30 or day <= 21 and month == 12:
-        return "Стрелец"
-    elif day >= 22 and month == 12 and day <= 31 or day <= 19 and month == 1:
-        return "Козирог"
-    elif day >= 20 and month == 1 and day <= 31 or day <= 18 and month == 2:
-        return "Водолей"
-    else:
-        return "Риби"
+    for tu in SIGNS:
+        if (month == tu[0] and day >= tu[1] or
+            month == tu[2] and day <= tu[3]):
+            return SIGNS[tu]
